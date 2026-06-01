@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Kancelaria Prawna</title>
+
+<style>
+body {
+  font-family: Arial;
+  margin: 0;
+  text-align: center;
+}
+
+/* strony */
+.page {
+  display: none;
+  padding: 20px;
+}
+
+/* tytułowa */
+#page1 {
+  display: block;
+  background: lightblue;
+}
+
+/* strona 2 */
+#page2 {
+  background: lightyellow;
+}
+
+/* final */
+#page3 {
+  background: lightgreen;
+}
+
+/* layout */
+.container {
+  display: flex;
+}
+
+/* lewa */
+.left {
+  width: 30%;
+  border: 2px solid black;
+  padding: 10px;
+}
+
+/* prawa */
+.right {
+  width: 30%;
+  padding: 10px;
+}
+
+/* środek */
+.center {
+  width: 40%;
+  padding: 10px;
+}
+
+/* aktywna usługa */
+.active {
+  background: lightgreen;
+}
+
+/* tekst nagłówka */
+.top-text {
+  font-size: 14px;
+  font-style: italic;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- STRONA 1 -->
+<div id="page1" class="page">
+  <h1>Prawo & Sprawiedliwość</h1>
+  <button onclick="goToPage2()">Przejdź dalej</button>
+</div>
+
+<!-- STRONA 2 -->
+<div id="page2" class="page">
+
+  <p class="top-text">
+    Witamy w naszej kancelarii prawnej, w czym możemy pomóc
+  </p>
+
+  <div class="container">
+
+    <!-- LEWA -->
+    <div class="left">
+      <h3>Usługi</h3>
+      <p onclick="selectService(this)">Pomoc prawna</p>
+      <p onclick="selectService(this)">Konsultacje prawne</p>
+      <p onclick="selectService(this)">Konsultacje niestandardowe</p>
+    </div>
+
+    <!-- ŚRODEK -->
+    <div class="center">
+      <p id="info"></p>
+    </div>
+
+    <!-- PRAWA -->
+    <div class="right">
+      <input id="name" placeholder="Imię nazwisko"><br><br>
+      <input id="phone" placeholder="Numer telefonu"><br><br>
+      <textarea id="question" placeholder="Opisz problem"></textarea><br><br>
+      <button onclick="sendForm()">Wyślij</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- STRONA 3 -->
+<div id="page3" class="page">
+  <h2>Wasza usługa jest zarejestrowana</h2>
+  <p>Proszę czekać – skontaktujemy się w ciągu 3 minut</p>
+</div>
+
+<script>
+
+let selected = null;
+
+function goToPage2() {
+  showPage("page2");
+}
+
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+  document.getElementById(id).style.display = "block";
+}
+
+function selectService(el) {
+  document.querySelectorAll(".left p").forEach(p => p.classList.remove("active"));
+  el.classList.add("active");
+
+  selected = el.innerText;
+
+  document.getElementById("info").innerText =
+    "Wybrano: " + selected + "\nProszę wpisać swój numer telefonu i dane po prawej stronie";
+}
+
+function sendForm() {
+
+  showPage("page3");
+
+  // po 5 sekundach wraca
+  setTimeout(() => {
+    showPage("page2");
+  }, 5000);
+
+  // po 3 minutach (180000 ms)
+  setTimeout(() => {
+    showOffer();
+  }, 180000);
+}
+
+function showOffer() {
+  let decyzja = confirm(
+    "Radca prawny: Marek Kowal\n" +
+    "Przejrzeliśmy sprawę, jesteśmy gotowi pomóc.\n" +
+    "Cena: 1200 zł\n\nOK = zgadzam się\nAnuluj = rezygnuję"
+  );
+
+  if (decyzja) {
+    alert(
+      "Wysłaliśmy wiadomość.\n" +
+      "Proszę udać się na adres:\nPuławska 34b/55"
+    );
+  } else {
+    alert("Dziękujemy za skorzystanie z usługi");
+    showPage("page2");
+  }
+}
+
+</script>
+
+</body>
+</html>
