@@ -19,8 +19,12 @@ body {
 }
 
 #page1 {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: lightblue;
+  text-align: center;
 }
 
 #page2 {
@@ -83,38 +87,35 @@ body {
   transition: 0.3s;
 }
 
+/* PRZYCISK */
+.start-btn {
+  background: green;
+  color: white;
+  padding: 15px 40px;
+  font-size: 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.start-btn:hover {
+  background: darkgreen;
+}
+
 </style>
 </head>
 
 <body>
 
 <!-- STRONA 1 -->
-<div id="page1" class="page" style="
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  text-align:center;
-">
-
+<div id="page1" class="page">
   <h1 style="font-size:40px; margin-bottom:40px;">
     ⚖️ Kancelaria Prawna & Kowal
   </h1>
 
-  <button onclick="showPage('page2')" 
-    style="
-      background: green;
-      color: white;
-      padding: 15px 40px;
-      font-size: 18px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    ">
+  <button class="start-btn" onclick="showPage('page2')">
     Przejdź dalej
   </button>
-
 </div>
 
 <!-- STRONA 2 -->
@@ -155,7 +156,7 @@ body {
     <button onclick="sendForm()">Wyślij</button>
   </div>
 
-  <!-- KOMUNIKAT NA DOLE -->
+  <!-- KOMUNIKAT -->
   <p id="info" style="text-align:center; margin-top:20px;"></p>
 
   <!-- STOPKA -->
@@ -173,26 +174,29 @@ body {
 
 <script>
 
-let selected = null;
-
 /* ZMIANA STRONY */
 function showPage(id) {
   document.querySelectorAll(".page").forEach(p => p.style.display = "none");
-  document.getElementById(id).style.display = "block";
+
+  if (id === "page1") {
+    document.getElementById(id).style.display = "flex";
+  } else {
+    document.getElementById(id).style.display = "block";
+  }
 }
 
-/* LEWA STRONA */
+/* LEWA */
 function selectService(el) {
   document.querySelectorAll(".left p").forEach(p => p.classList.remove("active"));
   el.classList.add("active");
 
-  selected = el.innerText;
+  let selected = el.innerText;
 
   document.getElementById("info").innerText =
-    "Wybrano: " + selected + "\nProszę wpisać dane powyżej";
+    "Wybrano usługę: " + selected + ". Proszę uzupełnić formularz powyżej.";
 }
 
-/* PRAWA STRONA */
+/* PRAWA */
 function selectProgram(el) {
   document.querySelectorAll(".right p").forEach(p => p.classList.remove("active"));
   el.classList.add("active");
@@ -222,7 +226,6 @@ function sendForm() {
     showOffer();
   }, 10000);
 
-  /* CZYSZCZENIE */
   document.getElementById("name").value = "";
   document.getElementById("phone").value = "";
   document.getElementById("question").value = "";
@@ -231,8 +234,7 @@ function sendForm() {
 /* OFERTA */
 function showOffer() {
   let decyzja = confirm(
-    "Radca prawny: Marek Kowal\n" +
-    "Cena: 1200 zł\n\nOK = zgadzam się\nAnuluj = rezygnuję"
+    "Radca prawny: Marek Kowal\nCena: 1200 zł\n\nOK = zgadzam się\nAnuluj = rezygnuję"
   );
 
   if (decyzja) {
