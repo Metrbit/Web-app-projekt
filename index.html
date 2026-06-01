@@ -5,68 +5,85 @@
 <title>Kancelaria Prawna</title>
 
 <style>
+
 body {
-  font-family: Arial;
   margin: 0;
-  text-align: center;
+  font-family: Arial;
 }
 
-/* strony */
+/* STRONY NA CAŁĄ WYSOKOŚĆ */
 .page {
   display: none;
+  min-height: 100vh;
   padding: 20px;
 }
 
-/* tytułowa */
+/* STRONA 1 */
 #page1 {
   display: block;
   background: lightblue;
 }
 
-/* strona 2 */
+/* STRONA 2 */
 #page2 {
   background: lightyellow;
 }
 
-/* final */
+/* STRONA 3 */
 #page3 {
   background: lightgreen;
 }
 
-/* layout */
+/* GÓRNY TEKST */
+.top-text {
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+}
+
+/* UKŁAD */
 .container {
   display: flex;
+  justify-content: space-between;
 }
 
-/* lewa */
-.left {
-  width: 30%;
+/* LEWA RAMKA */
+.left, .right {
+  width: 25%;
   border: 2px solid black;
   padding: 10px;
+  height: 250px;
 }
 
-/* prawa */
-.right {
-  width: 30%;
-  padding: 10px;
-}
-
-/* środek */
+/* ŚRODEK */
 .center {
   width: 40%;
-  padding: 10px;
+  text-align: center;
 }
 
-/* aktywna usługa */
+/* FORMULARZ NA DOLE */
+.form-box {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* STOPKA */
+.footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* WYBÓR */
+.left p:hover {
+  cursor: pointer;
+  background: lightgray;
+}
+
 .active {
   background: lightgreen;
 }
 
-/* tekst nagłówka */
-.top-text {
-  font-size: 14px;
-  font-style: italic;
-}
 </style>
 
 </head>
@@ -75,8 +92,8 @@ body {
 
 <!-- STRONA 1 -->
 <div id="page1" class="page">
-  <h1>Prawo & Sprawiedliwość</h1>
-  <button onclick="goToPage2()">Przejdź dalej</button>
+  <h1>⚖️ Kancelaria Prawna Kowal & Partnerzy</h1>
+  <button onclick="showPage('page2')">Przejdź dalej</button>
 </div>
 
 <!-- STRONA 2 -->
@@ -103,13 +120,27 @@ body {
 
     <!-- PRAWA -->
     <div class="right">
-      <input id="name" placeholder="Imię nazwisko"><br><br>
-      <input id="phone" placeholder="Numer telefonu"><br><br>
-      <textarea id="question" placeholder="Opisz problem"></textarea><br><br>
-      <button onclick="sendForm()">Wyślij</button>
+      <h3>Programy</h3>
+      <p>Program pomocy UE</p>
+      <p>Zaliczkę na biznes</p>
+      <p>Zaliczkę na mieszkanie</p>
     </div>
 
   </div>
+
+  <!-- FORMULARZ NA DOLE -->
+  <div class="form-box">
+    <input id="name" placeholder="Imię nazwisko"><br><br>
+    <input id="phone" placeholder="Numer telefonu"><br><br>
+    <textarea id="question" placeholder="Zakres pytania"></textarea><br><br>
+    <button onclick="sendForm()">Wyślij</button>
+  </div>
+
+  <!-- STOPKA -->
+  <div class="footer">
+    📍 Adres: Puławska 34b/55
+  </div>
+
 </div>
 
 <!-- STRONA 3 -->
@@ -121,10 +152,6 @@ body {
 <script>
 
 let selected = null;
-
-function goToPage2() {
-  showPage("page2");
-}
 
 function showPage(id) {
   document.querySelectorAll(".page").forEach(p => p.style.display = "none");
@@ -138,36 +165,37 @@ function selectService(el) {
   selected = el.innerText;
 
   document.getElementById("info").innerText =
-    "Wybrano: " + selected + "\nProszę wpisać swój numer telefonu i dane po prawej stronie";
+    "Wybrano: " + selected + "\nProszę wpisać dane poniżej";
 }
 
 function sendForm() {
 
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+
+  if (name === "" || phone === "") {
+    alert("Dane są niepoprawne, proszę wpisać ponownie!");
+    return;
+  }
+
   showPage("page3");
 
-  // po 5 sekundach wraca
   setTimeout(() => {
     showPage("page2");
   }, 5000);
 
-  // po 3 minutach (180000 ms)
   setTimeout(() => {
     showOffer();
-  }, 180000);
+  }, 10000);
 }
 
 function showOffer() {
   let decyzja = confirm(
-    "Radca prawny: Marek Kowal\n" +
-    "Przejrzeliśmy sprawę, jesteśmy gotowi pomóc.\n" +
-    "Cena: 1200 zł\n\nOK = zgadzam się\nAnuluj = rezygnuję"
+    "Radca prawny: Marek Kowal\nCena: 1200 zł\n\nOK = zgadzam się\nAnuluj = rezygnuję"
   );
 
   if (decyzja) {
-    alert(
-      "Wysłaliśmy wiadomość.\n" +
-      "Proszę udać się na adres:\nPuławska 34b/55"
-    );
+    alert("Adres: Puławska 34b/55");
   } else {
     alert("Dziękujemy za skorzystanie z usługi");
     showPage("page2");
@@ -178,3 +206,4 @@ function showOffer() {
 
 </body>
 </html>
+``
