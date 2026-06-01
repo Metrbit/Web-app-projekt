@@ -11,33 +11,30 @@ body {
   font-family: Arial;
 }
 
-/* STRONY NA CAŁĄ WYSOKOŚĆ */
+/* STRONY */
 .page {
   display: none;
   min-height: 100vh;
   padding: 20px;
 }
 
-/* STRONA 1 */
 #page1 {
   display: block;
   background: lightblue;
 }
 
-/* STRONA 2 */
 #page2 {
   background: lightyellow;
 }
 
-/* STRONA 3 */
 #page3 {
   background: lightgreen;
 }
 
-/* GÓRNY TEKST */
+/* POWITANIE */
 .top-text {
-  font-size: 14px;
-  font-style: italic;
+  font-size: 20px;
+  font-weight: bold;
   text-align: center;
 }
 
@@ -45,9 +42,10 @@ body {
 .container {
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
-/* LEWA RAMKA */
+/* RAMKI */
 .left, .right {
   width: 25%;
   border: 2px solid black;
@@ -61,9 +59,9 @@ body {
   text-align: center;
 }
 
-/* FORMULARZ NA DOLE */
+/* FORMULARZ */
 .form-box {
-  margin-top: 20px;
+  margin-top: 30px;
   text-align: center;
 }
 
@@ -74,18 +72,19 @@ body {
   font-size: 14px;
 }
 
-/* WYBÓR */
-.left p:hover {
+/* INTERAKCJA */
+.left p:hover,
+.right p:hover {
   cursor: pointer;
   background: lightgray;
 }
 
 .active {
   background: lightgreen;
+  transition: 0.3s;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -115,20 +114,19 @@ body {
 
     <!-- ŚRODEK -->
     <div class="center">
-      <p id="info"></p>
     </div>
 
     <!-- PRAWA -->
     <div class="right">
       <h3>Programy</h3>
-      <p>Program pomocy UE</p>
-      <p>Zaliczkę na biznes</p>
-      <p>Zaliczkę na mieszkanie</p>
+      <p onclick="selectProgram(this)">Program pomocy UE</p>
+      <p onclick="selectProgram(this)">Zaliczkę na biznes</p>
+      <p onclick="selectProgram(this)">Zaliczkę na mieszkanie</p>
     </div>
 
   </div>
 
-  <!-- FORMULARZ NA DOLE -->
+  <!-- FORMULARZ -->
   <div class="form-box">
     <input id="name" placeholder="Imię nazwisko"><br><br>
     <input id="phone" placeholder="Numer telefonu"><br><br>
@@ -136,9 +134,12 @@ body {
     <button onclick="sendForm()">Wyślij</button>
   </div>
 
+  <!-- KOMUNIKAT NA DOLE -->
+  <p id="info" style="text-align:center; margin-top:20px;"></p>
+
   <!-- STOPKA -->
   <div class="footer">
-    📍 Adres: Puławska 34b/55
+    🌸 Adres: Puławska 34b/55
   </div>
 
 </div>
@@ -146,18 +147,20 @@ body {
 <!-- STRONA 3 -->
 <div id="page3" class="page">
   <h2>Wasza usługa jest zarejestrowana</h2>
-  <p>Proszę czekać – skontaktujemy się w ciągu 3 minut</p>
+  <p>Proszę czekać – skontaktujemy się w ciągu kilku sekund</p>
 </div>
 
 <script>
 
 let selected = null;
 
+/* ZMIANA STRONY */
 function showPage(id) {
   document.querySelectorAll(".page").forEach(p => p.style.display = "none");
   document.getElementById(id).style.display = "block";
 }
 
+/* WYBÓR USŁUGI */
 function selectService(el) {
   document.querySelectorAll(".left p").forEach(p => p.classList.remove("active"));
   el.classList.add("active");
@@ -168,6 +171,16 @@ function selectService(el) {
     "Wybrano: " + selected + "\nProszę wpisać dane poniżej";
 }
 
+/* WYBÓR PROGRAMU */
+function selectProgram(el) {
+  document.querySelectorAll(".right p").forEach(p => p.classList.remove("active"));
+  el.classList.add("active");
+
+  document.getElementById("info").innerText =
+    "Zakres tej usługi przewiduje konsultację online lub telefoniczną.";
+}
+
+/* WYSYŁANIE */
 function sendForm() {
 
   let name = document.getElementById("name").value;
@@ -187,15 +200,22 @@ function sendForm() {
   setTimeout(() => {
     showOffer();
   }, 10000);
+
+  /* CZYSZCZENIE */
+  document.getElementById("name").value = "";
+  document.getElementById("phone").value = "";
+  document.getElementById("question").value = "";
 }
 
+/* OFERTA */
 function showOffer() {
   let decyzja = confirm(
-    "Radca prawny: Marek Kowal\nCena: 1200 zł\n\nOK = zgadzam się\nAnuluj = rezygnuję"
+    "Radca prawny: Marek Kowal\n" +
+    "Cena: 1200 zł\n\nOK = zgadzam się\nAnuluj = rezygnuję"
   );
 
   if (decyzja) {
-    alert("Adres: Puławska 34b/55");
+    alert("Wysłano adres:\nPuławska 34b/55");
   } else {
     alert("Dziękujemy za skorzystanie z usługi");
     showPage("page2");
@@ -206,4 +226,3 @@ function showOffer() {
 
 </body>
 </html>
-``
