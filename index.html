@@ -56,7 +56,6 @@ body {
 /* ŚRODEK */
 .center {
   width: 40%;
-  text-align: center;
 }
 
 /* FORMULARZ */
@@ -72,7 +71,7 @@ body {
   font-size: 14px;
 }
 
-/* INTERAKCJA */
+/* INTERAKCJE */
 .left p:hover,
 .right p:hover {
   cursor: pointer;
@@ -91,7 +90,7 @@ body {
 
 <!-- STRONA 1 -->
 <div id="page1" class="page">
-  <h1>⚖️ Kancelaria Prawna Kowal & Partnerzy</h1>
+  <h1>⚖️ Kancelaria Prawna & Kowal </h1>
   <button onclick="showPage('page2')">Przejdź dalej</button>
 </div>
 
@@ -113,8 +112,7 @@ body {
     </div>
 
     <!-- ŚRODEK -->
-    <div class="center">
-    </div>
+    <div class="center"></div>
 
     <!-- PRAWA -->
     <div class="right">
@@ -160,7 +158,7 @@ function showPage(id) {
   document.getElementById(id).style.display = "block";
 }
 
-/* WYBÓR USŁUGI */
+/* LEWA STRONA */
 function selectService(el) {
   document.querySelectorAll(".left p").forEach(p => p.classList.remove("active"));
   el.classList.add("active");
@@ -171,7 +169,7 @@ function selectService(el) {
     "Wybrano: " + selected + "\nProszę wpisać dane poniżej";
 }
 
-/* WYBÓR PROGRAMU */
+/* PRAWA STRONA */
 function selectProgram(el) {
   document.querySelectorAll(".right p").forEach(p => p.classList.remove("active"));
   el.classList.add("active");
@@ -180,7 +178,7 @@ function selectProgram(el) {
     "Zakres tej usługi przewiduje konsultację online lub telefoniczną.";
 }
 
-/* WYSYŁANIE */
+/* FORMULARZ */
 function sendForm() {
 
   let name = document.getElementById("name").value;
