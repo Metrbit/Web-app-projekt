@@ -18,6 +18,7 @@ body {
   padding: 20px;
 }
 
+/* STRONA 1 – wycentrowana */
 #page1 {
   display: flex;
   flex-direction: column;
@@ -27,11 +28,12 @@ body {
   text-align: center;
 }
 
+/* STRONA 2 – nowy kolor */
 #page2 {
-  background: #2c3e50;
-  color: white;
+  background: #f5f5f5;
 }
 
+/* STRONA 3 */
 #page3 {
   background: lightgreen;
 }
@@ -61,6 +63,7 @@ body {
 /* ŚRODEK */
 .center {
   width: 40%;
+  text-align: center;
 }
 
 /* FORMULARZ */
@@ -103,6 +106,59 @@ body {
   background: darkgreen;
 }
 
+/* DIAGRAM */
+.diagram {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  margin-top: 40px;
+}
+
+/* środek */
+.middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  background: gold;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* góra */
+.top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* dół */
+.bottom {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* prawa */
+.right-diagram {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* lewa */
+.left-diagram {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 </style>
 </head>
 
@@ -110,6 +166,7 @@ body {
 
 <!-- STRONA 1 -->
 <div id="page1" class="page">
+
   <h1 style="font-size:40px; margin-bottom:40px;">
     ⚖️ Kancelaria Prawna & Kowal
   </h1>
@@ -117,6 +174,7 @@ body {
   <button class="start-btn" onclick="showPage('page2')">
     Przejdź dalej
   </button>
+
 </div>
 
 <!-- STRONA 2 -->
@@ -136,18 +194,15 @@ body {
       <p onclick="selectService(this)">Konsultacje niestandardowe</p>
     </div>
 
-    <!-- ŚRODEK -->
+    <!-- ŚRODEK → DIAGRAM -->
     <div class="center">
-      
-<div class="diagram">
-    <div class="top">Sukces ↑</div>
-    <div class="right">→ Terminowość</div>
-    <div class="bottom">Przejrzystość ↓</div>
-    <div class="left">← Dokładność</div>
-
-    <div class="middle">PRACA</div>
-  </div>
-
+      <div class="diagram">
+        <div class="top">Sukces ↑</div>
+        <div class="right-diagram">→ Terminowość</div>
+        <div class="bottom">Przejrzystość ↓</div>
+        <div class="left-diagram">← Dokładność</div>
+        <div class="middle">PRACA</div>
+      </div>
     </div>
 
     <!-- PRAWA -->
@@ -168,7 +223,7 @@ body {
     <button onclick="sendForm()">Wyślij</button>
   </div>
 
-  <!-- KOMUNIKAT -->
+  <!-- INFO -->
   <p id="info" style="text-align:center; margin-top:20px;"></p>
 
   <!-- STOPKA -->
